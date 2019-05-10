@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/hackday-hsl-timetables/static/js/main.93102898.chunk.js",
+    "main.js.map": "/hackday-hsl-timetables/static/js/main.93102898.chunk.js.map",
+    "runtime~main.js": "/hackday-hsl-timetables/static/js/runtime~main.2df6d5cc.js",
+    "runtime~main.js.map": "/hackday-hsl-timetables/static/js/runtime~main.2df6d5cc.js.map",
+    "static/js/2.e6adf91c.chunk.js": "/hackday-hsl-timetables/static/js/2.e6adf91c.chunk.js",
+    "static/js/2.e6adf91c.chunk.js.map": "/hackday-hsl-timetables/static/js/2.e6adf91c.chunk.js.map",
+    "index.html": "/hackday-hsl-timetables/index.html",
+    "precache-manifest.15e7d04ba298dd05cdd683ee9b2b5cbc.js": "/hackday-hsl-timetables/precache-manifest.15e7d04ba298dd05cdd683ee9b2b5cbc.js",
+    "service-worker.js": "/hackday-hsl-timetables/service-worker.js"
+  }
+}
