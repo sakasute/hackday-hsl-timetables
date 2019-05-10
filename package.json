@@ -4,7 +4,6 @@
   "homepage": "https://sakasute.github.io/hackday-hsl-timetables",
   "private": true,
   "dependencies": {
-    "gh-pages": "^2.0.1",
     "graphql-request": "^1.8.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -38,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "prettier": "^1.17.0"
   }
 }
