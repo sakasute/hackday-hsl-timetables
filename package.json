@@ -1,7 +1,7 @@
 {
   "name": "hackday-hsl-timetables",
   "version": "0.1.0",
-  "homepage": "https://sakasute.github.io/hackday-hsl-timetables/",
+  "homepage": "https://sakasute.github.io/hackday-hsl-timetables",
   "private": true,
   "dependencies": {
     "gh-pages": "^2.0.1",
