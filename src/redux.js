@@ -7,6 +7,12 @@ const SWIPE_LEFT = "SWIPE_LEFT";
 const FETCH_START = "FETCH_START";
 const FETCH_SUCCESS = "FETCH_SUCCESS";
 
+function getCurrentPosition(options = {}) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
 export const fetchNearbyTimetables = () => async dispatch => {
   dispatch({ type: FETCH_START });
 
@@ -18,11 +24,10 @@ export const fetchNearbyTimetables = () => async dispatch => {
   let radius = url.searchParams.get("radius");
 
   if (!lat || !lon) {
-    await navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position)
-      lat = position.coords.latitude;
-      lon = position.coords.latitude;
-    })
+    const position = await getCurrentPosition();
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+    radius = parseInt(radius);
   } else {
     lat = parseFloat(lat);
     lon = parseFloat(lon);
@@ -63,7 +68,7 @@ export const fetchNearbyTimetables = () => async dispatch => {
     "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
     query
   )
-    .then(data => dispatch({ type: FETCH_SUCCESS, payload: data }))
+    .then(data => dispatch({type: FETCH_SUCCESS, payload: data}))
     .catch(error => console.log(error));
 };
 
