@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+import Timetable from './Timetable';
+
 const StopInfoWrapper = styled.article`
   display: inline-block;
-  width: 275px;
+  vertical-align: top;
+  width: 300px;
   margin: 25px;
   padding: 15px;
   border: 1px solid black;
@@ -25,6 +28,7 @@ const StopInfo = ({ stopInfo, distance }) => {
     <StopInfoWrapper>
       <StopName>{`${stopInfo.name}, ${stopInfo.code} (${distance} m)`}</StopName>
       <Desc>{stopInfo.desc}</Desc>
+      <Timetable stoptimes={stopInfo.stoptimesWithoutPatterns}/>
     </StopInfoWrapper>
   );
 };
