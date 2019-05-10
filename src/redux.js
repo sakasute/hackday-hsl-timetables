@@ -23,6 +23,8 @@ export const fetchNearbyTimetables = () => dispatch => {
           stop { 
             gtfsId 
             name
+            code
+            desc
             lat
             lon
             stoptimesWithoutPatterns {
