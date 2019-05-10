@@ -10,14 +10,23 @@ const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const fetchNearbyTimetables = () => dispatch => {
   dispatch({ type: FETCH_START });
 
-  const home = {
-    lat: 60.191,
-    lon: 24.911,
-    radius: 100
-  };
+  const urlStr = window.location.href;
+  const url = new URL(urlStr);
+
+  let lat = url.searchParams.get("lat");
+  let lon = url.searchParams.get("lon");
+  let radius = url.searchParams.get("radius");
+
+  if (!lat || !lon) {
+
+  } else {
+    lat = parseFloat(lat);
+    lon = parseFloat(lon);
+    radius = parseInt(radius);
+  }
 
   const query = `{
-    stopsByRadius(lat:${home.lat}, lon:${home.lon}, radius:${home.radius}) {
+    stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}) {
       edges {
         node {
           stop { 
