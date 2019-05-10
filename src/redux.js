@@ -7,7 +7,7 @@ const SWIPE_LEFT = "SWIPE_LEFT";
 const FETCH_START = "FETCH_START";
 const FETCH_SUCCESS = "FETCH_SUCCESS";
 
-export const fetchNearbyTimetables = () => dispatch => {
+export const fetchNearbyTimetables = () => async dispatch => {
   dispatch({ type: FETCH_START });
 
   const urlStr = window.location.href;
@@ -18,13 +18,17 @@ export const fetchNearbyTimetables = () => dispatch => {
   let radius = url.searchParams.get("radius");
 
   if (!lat || !lon) {
-
+    await navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position)
+      lat = position.coords.latitude;
+      lon = position.coords.latitude;
+    })
   } else {
     lat = parseFloat(lat);
     lon = parseFloat(lon);
     radius = parseInt(radius);
   }
-
+  console.log(lat)
   const query = `{
     stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}) {
       edges {
