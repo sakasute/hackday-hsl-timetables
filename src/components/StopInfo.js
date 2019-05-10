@@ -23,7 +23,6 @@ const Desc = styled.h3`
 `;
 
 const StopInfo = ({ stopInfo, distance }) => {
-  console.log(stopInfo);
   return (
     <StopInfoWrapper>
       <StopName>{`${stopInfo.name}, ${stopInfo.code} (${distance} m)`}</StopName>

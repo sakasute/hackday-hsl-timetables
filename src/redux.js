@@ -28,7 +28,7 @@ export const fetchNearbyTimetables = () => async dispatch => {
     lon = parseFloat(lon);
     radius = parseInt(radius);
   }
-  console.log(lat)
+
   const query = `{
     stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}) {
       edges {
