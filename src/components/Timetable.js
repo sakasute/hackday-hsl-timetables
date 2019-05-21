@@ -19,7 +19,6 @@ const Timetable = ({ stoptimes }) => {
     const secondsSinceMidnight = Math.floor(
       (now.getTime() - departureDate.getTime()) / 1000
     );
-    console.log(Math.max(Math.floor((arrivalTime - secondsSinceMidnight) / 60), 0))
     return Math.max(Math.floor((arrivalTime - secondsSinceMidnight) / 60), 0);
   };
 

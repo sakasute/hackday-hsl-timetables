@@ -32,6 +32,13 @@ function App(props) {
     fetchNearbyTimetables
   } = props;
 
+  const urlStr = window.location.href;
+  const url = new URL(urlStr);
+  let zoom = url.searchParams.get("zoom");
+  if (!zoom) {
+    zoom = 15.5
+  }
+
   React.useEffect(() => {
     fetchNearbyTimetables();
   }, [fetchNearbyTimetables]);
@@ -44,13 +51,13 @@ function App(props) {
         <p>loading...</p>
       ) : (
         <Map
-          style="mapbox://styles/mapbox/streets-v10"
+          style="mapbox://styles/mapbox/light-v9"
           containerStyle={{
             height: "100vh",
             width: "100vw"
           }}
           center={[geolocation.lon, geolocation.lat]}
-          zoom={[15.5]}
+          zoom={[zoom]}
           onClick={() => setStopPopup(null)}
         >
           <Layer
@@ -63,7 +70,7 @@ function App(props) {
           <Layer
             type={"symbol"}
             id="stops"
-            layout={{ "icon-image": "bus-15", "icon-size": 1 }}
+            layout={{ "icon-image": "bus-15", "icon-size": 1.5 }}
           >
             {nearbyTimetables.map(stop => {
               return (
