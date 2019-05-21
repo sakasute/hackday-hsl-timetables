@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hackday-hsl-timetables/precache-manifest.af06c505185f5551263e7f01a4ba6a62.js"
+  "/hackday-hsl-timetables/precache-manifest.d782e20a1a7b114cf85874f197253de1.js"
 );
 
 self.addEventListener('message', (event) => {
