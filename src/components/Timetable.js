@@ -14,28 +14,21 @@ const TimetableList = styled.ul`
 const Timetable = ({ stoptimes }) => {
   const now = new Date();
 
-  // FIXME: the actual midnight is midnight of the departure time
-  const midnight = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    0,
-    0,
-    0
-  );
-
-  const calculateArrivalMinutes = (arrivalTime, secondsSinceMidnight) => {
+  const calculateArrivalMinutes = (arrivalTime, departureTimestamp) => {
+    const departureDate = new Date(departureTimestamp * 1000);
+    const secondsSinceMidnight = Math.floor(
+      (now.getTime() - departureDate.getTime()) / 1000
+    );
+    console.log(Math.max(Math.floor((arrivalTime - secondsSinceMidnight) / 60), 0))
     return Math.max(Math.floor((arrivalTime - secondsSinceMidnight) / 60), 0);
   };
 
-  const secondsSinceMidnight = Math.floor(
-    (now.getTime() - midnight.getTime()) / 1000
-  );
-
   const nextStops = stoptimes.map(stoptime => (
-    <li key={stoptime.realtimeArrival}>{`${stoptime.headsign} (${calculateArrivalMinutes(
+    <li key={stoptime.realtimeArrival}>{`${stoptime.trip.routeShortName} ${
+      stoptime.headsign
+    } (${calculateArrivalMinutes(
       stoptime.realtimeArrival,
-      secondsSinceMidnight
+      stoptime.serviceDay
     )} min)`}</li>
   ));
 

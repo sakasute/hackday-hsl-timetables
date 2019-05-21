@@ -5,7 +5,6 @@ import Timetable from "./Timetable";
 
 const StopInfoWrapper = styled.article`
   vertical-align: top;
-  width: 300px;
 `;
 
 const StopName = styled.h2`
@@ -17,13 +16,12 @@ const Desc = styled.h3`
   margin: 0 0 1em 0;
 `;
 
-const StopInfo = ({ stopInfo, distance }) => {
-  console.log(stopInfo.desc);
+const StopInfo = ({ stopInfo }) => {
   return (
     <StopInfoWrapper>
       <StopName>{`${stopInfo.name}, ${
         stopInfo.code
-      } (${distance} m)`}</StopName>
+      } (${stopInfo.distance} m)`}</StopName>
       <Desc>{stopInfo.desc}</Desc>
       <Timetable stoptimes={stopInfo.stoptimesWithoutPatterns} />
     </StopInfoWrapper>

@@ -63,6 +63,10 @@ export const fetchNearbyTimetables = () => async dispatch => {
               realtimeState
               serviceDay
               headsign
+              trip {
+                routeShortName
+                directionId
+              } 
             }
           }
           distance
@@ -98,7 +102,10 @@ const reducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        nearbyTimetables: action.payload
+        nearbyTimetables: action.payload.stopsByRadius.edges.map(edge => ({
+          ...edge.node.stop,
+          distance: edge.node.distance
+        }))
       };
     case LOCATION_UPDATED:
       return {

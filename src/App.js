@@ -34,70 +34,56 @@ function App(props) {
 
   React.useEffect(() => {
     fetchNearbyTimetables();
-  }, []);
+  }, [fetchNearbyTimetables]);
 
+  const [stopPopup, setStopPopup] = React.useState(null);
   return (
-    <div>
+    <main>
       <GlobalStyle />
       {loading || !nearbyTimetables ? (
         <p>loading...</p>
       ) : (
-        <div>
-          <Map
-            style="mapbox://styles/mapbox/streets-v10"
-            containerStyle={{
-              height: "100vh",
-              width: "100vw"
-            }}
-            center={[geolocation.lon, geolocation.lat]}
-            zoom={[15]}
+        <Map
+          style="mapbox://styles/mapbox/streets-v10"
+          containerStyle={{
+            height: "100vh",
+            width: "100vw"
+          }}
+          center={[geolocation.lon, geolocation.lat]}
+          zoom={[15.5]}
+          onClick={() => setStopPopup(null)}
+        >
+          <Layer
+            type="circle"
+            id="geolocation"
+            paint={{ "circle-radius": 15, "circle-color": "#ff512c" }}
           >
-            <Layer
-              type="circle"
-              id="geolocation"
-              paint={{ "circle-radius": 15, "circle-color": "#ff0000" }}
-            >
-              <Feature coordinates={[geolocation.lon, geolocation.lat]} />
-            </Layer>
-            <Layer
-              type={"symbol"}
-              id="stops"
-              layout={{ "icon-image": "bus-15", "icon-size": 1 }}
-            >
-              {nearbyTimetables.stopsByRadius.edges.map(edge => {
-                const { stop } = edge.node;
-                return (
-                  <Feature
-                    key={stop.gtfsId}
-                    coordinates={[stop.lon, stop.lat]}
-                  />
-                );
-              })}
-            </Layer>
-            {nearbyTimetables.stopsByRadius.edges.map(edge => {
-              const { stop } = edge.node;
-              console.log(edge);
+            <Feature coordinates={[geolocation.lon, geolocation.lat]} />
+          </Layer>
+          <Layer
+            type={"symbol"}
+            id="stops"
+            layout={{ "icon-image": "bus-15", "icon-size": 1 }}
+          >
+            {nearbyTimetables.map(stop => {
               return (
-                <Popup coordinates={[stop.lon, stop.lat]}>
-                  <StopInfo
-                    key={stop.gtfsId}
-                    stopInfo={stop}
-                    distance={edge.node.distance}
-                  />
-                </Popup>
-              )
+                <Feature key={stop.gtfsId} coordinates={[stop.lon, stop.lat]} onClick={() => setStopPopup(stop)} />
+              );
             })}
-          </Map>
-          {nearbyTimetables.stopsByRadius.edges.map(edge => (
-            <StopInfo
-              key={edge.node.stop.gtfsId}
-              stopInfo={edge.node.stop}
-              distance={edge.node.distance}
-            />
-          ))}
-        </div>
+          </Layer>
+          {stopPopup && (
+            <Popup
+              coordinates={[stopPopup.lon, stopPopup.lat]}
+            >
+              <StopInfo
+                key={stopPopup.gtfsId}
+                stopInfo={stopPopup}
+              />
+            </Popup>
+          )}
+        </Map>
       )}
-    </div>
+    </main>
   );
 }
 
