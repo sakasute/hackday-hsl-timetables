@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.js": "/hackday-hsl-timetables/static/js/main.2bdac042.chunk.js",
-    "main.js.map": "/hackday-hsl-timetables/static/js/main.2bdac042.chunk.js.map",
+    "main.js": "/hackday-hsl-timetables/static/js/main.5e1b49d8.chunk.js",
+    "main.js.map": "/hackday-hsl-timetables/static/js/main.5e1b49d8.chunk.js.map",
     "runtime~main.js": "/hackday-hsl-timetables/static/js/runtime~main.2df6d5cc.js",
     "runtime~main.js.map": "/hackday-hsl-timetables/static/js/runtime~main.2df6d5cc.js.map",
-    "static/js/2.e6adf91c.chunk.js": "/hackday-hsl-timetables/static/js/2.e6adf91c.chunk.js",
-    "static/js/2.e6adf91c.chunk.js.map": "/hackday-hsl-timetables/static/js/2.e6adf91c.chunk.js.map",
+    "static/css/2.2614ebd1.chunk.css": "/hackday-hsl-timetables/static/css/2.2614ebd1.chunk.css",
+    "static/js/2.682135b0.chunk.js": "/hackday-hsl-timetables/static/js/2.682135b0.chunk.js",
+    "static/js/2.682135b0.chunk.js.map": "/hackday-hsl-timetables/static/js/2.682135b0.chunk.js.map",
     "index.html": "/hackday-hsl-timetables/index.html",
-    "precache-manifest.806d3dd5caff8995af46673eb3ae3600.js": "/hackday-hsl-timetables/precache-manifest.806d3dd5caff8995af46673eb3ae3600.js",
-    "service-worker.js": "/hackday-hsl-timetables/service-worker.js"
+    "precache-manifest.af06c505185f5551263e7f01a4ba6a62.js": "/hackday-hsl-timetables/precache-manifest.af06c505185f5551263e7f01a4ba6a62.js",
+    "service-worker.js": "/hackday-hsl-timetables/service-worker.js",
+    "static/css/2.2614ebd1.chunk.css.map": "/hackday-hsl-timetables/static/css/2.2614ebd1.chunk.css.map"
   }
 }
