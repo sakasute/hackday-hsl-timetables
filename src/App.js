@@ -27,10 +27,13 @@ const Map = ReactMapboxGl({
 function App(props) {
   const {
     geolocation,
+    isCustomLocation,
     nearbyTimetables,
     loading,
     fetchNearbyTimetables
   } = props;
+
+  console.log(isCustomLocation)
 
   const urlStr = window.location.href;
   const url = new URL(urlStr);
@@ -60,13 +63,15 @@ function App(props) {
           zoom={[zoom]}
           onClick={() => setStopPopup(null)}
         >
-          <Layer
-            type="circle"
-            id="geolocation"
-            paint={{ "circle-radius": 15, "circle-color": "#ff512c" }}
-          >
-            <Feature coordinates={[geolocation.lon, geolocation.lat]} />
-          </Layer>
+          {!isCustomLocation && (
+            <Layer
+              type="circle"
+              id="geolocation"
+              paint={{ "circle-radius": 15, "circle-color": "#ff512c" }}
+            >
+              <Feature coordinates={[geolocation.lon, geolocation.lat]} />
+            </Layer>
+          )}
           <Layer
             type={"symbol"}
             id="stops"
@@ -97,7 +102,8 @@ function App(props) {
 const mapStateToProps = state => ({
   nearbyTimetables: state.nearbyTimetables,
   loading: state.loading,
-  geolocation: state.geolocation
+  geolocation: state.geolocation,
+  isCustomLocation: state.isCustomLocation
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -20,6 +20,7 @@ export const fetchNearbyTimetables = () => async dispatch => {
   const urlStr = window.location.href;
   const url = new URL(urlStr);
 
+  let isCustomLocation = true;
   let lat = url.searchParams.get("lat");
   let lon = url.searchParams.get("lon");
   let radius = url.searchParams.get("radius");
@@ -30,6 +31,7 @@ export const fetchNearbyTimetables = () => async dispatch => {
     console.log("geolocation end", position);
     lat = position.coords.latitude;
     lon = position.coords.longitude;
+    isCustomLocation = false;
   } else {
     lat = parseFloat(lat);
     lon = parseFloat(lon);
@@ -39,7 +41,7 @@ export const fetchNearbyTimetables = () => async dispatch => {
     radius = 500;
   }
 
-  dispatch({ type: LOCATION_UPDATED, payload: { lat, lon } });
+  dispatch({ type: LOCATION_UPDATED, payload: {isCustomLocation, position: { lat, lon }} });
 
   const query = `{
     stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}) {
@@ -110,7 +112,8 @@ const reducer = (state, action) => {
     case LOCATION_UPDATED:
       return {
         ...state,
-        geolocation: action.payload
+        isCustomLocation: action.payload.isCustomLocation,
+        geolocation: action.payload.position
       };
 
     default:
