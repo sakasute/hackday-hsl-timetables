@@ -1,16 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import Timetable from './Timetable';
+import Timetable from "./Timetable";
 
 const StopInfoWrapper = styled.article`
-  display: inline-block;
   vertical-align: top;
   width: 300px;
-  margin: 25px;
-  padding: 15px;
-  border: 1px solid black;
-  background-color: white;
 `;
 
 const StopName = styled.h2`
@@ -23,11 +18,14 @@ const Desc = styled.h3`
 `;
 
 const StopInfo = ({ stopInfo, distance }) => {
+  console.log(stopInfo.desc);
   return (
     <StopInfoWrapper>
-      <StopName>{`${stopInfo.name}, ${stopInfo.code} (${distance} m)`}</StopName>
+      <StopName>{`${stopInfo.name}, ${
+        stopInfo.code
+      } (${distance} m)`}</StopName>
       <Desc>{stopInfo.desc}</Desc>
-      <Timetable stoptimes={stopInfo.stoptimesWithoutPatterns}/>
+      <Timetable stoptimes={stopInfo.stoptimesWithoutPatterns} />
     </StopInfoWrapper>
   );
 };

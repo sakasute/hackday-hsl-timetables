@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const TimetableList = styled.ul`
   list-style: none;
-  padding-left: 5px;
+  padding-left: 0;
 
   li {
     padding: 5px 0;
@@ -13,6 +13,8 @@ const TimetableList = styled.ul`
 
 const Timetable = ({ stoptimes }) => {
   const now = new Date();
+
+  // FIXME: the actual midnight is midnight of the departure time
   const midnight = new Date(
     now.getFullYear(),
     now.getMonth(),
@@ -31,7 +33,7 @@ const Timetable = ({ stoptimes }) => {
   );
 
   const nextStops = stoptimes.map(stoptime => (
-    <li>{`${stoptime.headsign} (${calculateArrivalMinutes(
+    <li key={stoptime.realtimeArrival}>{`${stoptime.headsign} (${calculateArrivalMinutes(
       stoptime.realtimeArrival,
       secondsSinceMidnight
     )} min)`}</li>

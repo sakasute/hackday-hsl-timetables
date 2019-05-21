@@ -6,6 +6,7 @@ const SWIPE_RIGHT = "SWIPE_RIGHT";
 const SWIPE_LEFT = "SWIPE_LEFT";
 const FETCH_START = "FETCH_START";
 const FETCH_SUCCESS = "FETCH_SUCCESS";
+const LOCATION_UPDATED = "LOCATION_UPDATED";
 
 function getCurrentPosition(options = {}) {
   return new Promise((resolve, reject) => {
@@ -24,28 +25,34 @@ export const fetchNearbyTimetables = () => async dispatch => {
   let radius = url.searchParams.get("radius");
 
   if (!lat || !lon) {
+    console.log("geolocation start");
     const position = await getCurrentPosition();
+    console.log("geolocation end", position);
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    radius = parseInt(radius);
   } else {
     lat = parseFloat(lat);
     lon = parseFloat(lon);
-    radius = parseInt(radius);
   }
+
+  if (!radius) {
+    radius = 500;
+  }
+
+  dispatch({ type: LOCATION_UPDATED, payload: { lat, lon } });
 
   const query = `{
     stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}) {
       edges {
         node {
-          stop { 
-            gtfsId 
+          stop {
+            gtfsId
             name
             code
             desc
             lat
             lon
-            stoptimesWithoutPatterns {
+              stoptimesWithoutPatterns {
               scheduledArrival
               realtimeArrival
               arrivalDelay
@@ -64,12 +71,15 @@ export const fetchNearbyTimetables = () => async dispatch => {
     }
   }`;
 
+  console.log("query start");
+
   graphqlRequest(
     "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
     query
   )
-    .then(data => dispatch({type: FETCH_SUCCESS, payload: data}))
-    .catch(error => console.log(error));
+    .then(data => dispatch({ type: FETCH_SUCCESS, payload: data }))
+    .catch(error => console.log(error))
+    .finally(() => console.log("query end"));
 };
 
 // export const swipeRight = () => ({
@@ -89,6 +99,11 @@ const reducer = (state, action) => {
         ...state,
         loading: false,
         nearbyTimetables: action.payload
+      };
+    case LOCATION_UPDATED:
+      return {
+        ...state,
+        geolocation: action.payload
       };
 
     default:
