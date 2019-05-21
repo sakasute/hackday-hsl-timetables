@@ -19,9 +19,17 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const urlStr = window.location.href;
+const url = new URL(urlStr);
+let zoom = url.searchParams.get("zoom");
+if (!zoom) {
+  zoom = 15.5
+}
+
+let accessToken = url.searchParams.get("accessToken");
+
 const Map = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1Ijoic2FrYXN1dGUtYWxtYSIsImEiOiJjanZ4aGc2OG8wNHM3NDNycnNyNTBhOThlIn0.70Nsp4cpsqajXtCLiFS5aA"
+  accessToken: accessToken
 });
 
 function App(props) {
@@ -33,14 +41,6 @@ function App(props) {
     fetchNearbyTimetables
   } = props;
 
-  console.log(isCustomLocation)
-
-  const urlStr = window.location.href;
-  const url = new URL(urlStr);
-  let zoom = url.searchParams.get("zoom");
-  if (!zoom) {
-    zoom = 15.5
-  }
 
   React.useEffect(() => {
     fetchNearbyTimetables();
@@ -90,6 +90,7 @@ function App(props) {
               <StopInfo
                 key={stopPopup.gtfsId}
                 stopInfo={stopPopup}
+                isCustomLocation={isCustomLocation}
               />
             </Popup>
           )}

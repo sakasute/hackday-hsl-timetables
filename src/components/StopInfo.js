@@ -16,12 +16,14 @@ const Desc = styled.h3`
   margin: 0 0 1em 0;
 `;
 
-const StopInfo = ({ stopInfo }) => {
+const StopInfo = ({ stopInfo, isCustomLocation }) => {
+  const stopName = !isCustomLocation
+    ? `${stopInfo.name}, ${stopInfo.code} (${stopInfo.distance} m)`
+    : `${stopInfo.name}, ${stopInfo.code}`;
+
   return (
     <StopInfoWrapper>
-      <StopName>{`${stopInfo.name}, ${
-        stopInfo.code
-      } (${stopInfo.distance} m)`}</StopName>
+      <StopName>{stopName}</StopName>
       <Desc>{stopInfo.desc}</Desc>
       <Timetable stoptimes={stopInfo.stoptimesWithoutPatterns} />
     </StopInfoWrapper>
